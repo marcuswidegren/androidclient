@@ -1,0 +1,53 @@
+apply plugin: 'com.android.application'
+
+android {
+    packagingOptions {
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+    }
+
+    compileSdkVersion 20
+    buildToolsVersion "20.0.0"
+
+    defaultConfig {
+        applicationId "com.visma.cash.mrcashpro"
+        minSdkVersion 17
+        targetSdkVersion 20
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    repositories {
+        maven {
+            url 'http://repo.spring.io/milestone'
+        }
+        maven {
+            url 'file:C:\\Users\\widegmar\\.m2\\repository'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile('com.visma.cash:restclient:1.0-SNAPSHOT'){
+        exclude module: 'spring-web'
+    }
+    compile 'org.springframework.android:spring-android-rest-template:2.0.0.M1'
+    compile 'joda-time:joda-time:2.5'
+    compile 'org.joda:joda-money:0.6'
+    compile 'org.testng:testng:6.1.1'
+    compile group: 'com.google.guava', name: 'guava', version: '12.0'
+}
