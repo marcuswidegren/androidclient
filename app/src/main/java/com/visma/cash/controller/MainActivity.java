@@ -57,8 +57,9 @@ public final class MainActivity extends Activity implements Observer<AccountMode
 
     public void sendTransaction(View view) {
         EditText textField = (EditText)findViewById(R.id.edit_message);
+        EditText categoryTextField = (EditText) findViewById(R.id.edit_category);
         BigDecimal amount = new BigDecimal(textField.getText().toString());
-        controller.addTransaction(Transaction.newTransactionInEuros(amount));
+        controller.addTransaction(Transaction.newTransactionInEuros(amount, categoryTextField.getText().toString()));
         textField.getText().clear();
     }
 

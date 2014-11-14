@@ -50,7 +50,7 @@ final class TransactionAdapter extends BaseAdapter{
         timeView.setTextColor(Color.BLACK);
 
         TextView seperatorView = new TextView(context);
-        seperatorView.setText("-");
+        seperatorView.setText(transactions.get(i).getCategory());
         seperatorView.setTextColor(Color.BLACK);
 
         TextView amountView = new TextView(context);
