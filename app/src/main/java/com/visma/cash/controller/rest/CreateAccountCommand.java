@@ -3,18 +3,16 @@ package com.visma.cash.controller.rest;
 import com.visma.cash.model.AccountModel;
 import com.visma.cash.restclient.RestClient;
 
-final class CreateAccountCommand implements Runnable {
+final class CreateAccountCommand extends RestCommand {
 
-    private final RestClient restClient;
     private final AccountModel model;
 
-    CreateAccountCommand(RestClient restClient, AccountModel model) {
-        this.restClient = restClient;
+    CreateAccountCommand(AccountModel model) {
         this.model = model;
     }
 
     @Override
-    public void run() {
+    void executeRestCommand() {
         model.setAccount(restClient.createAccount());
     }
 

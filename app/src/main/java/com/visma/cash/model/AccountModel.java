@@ -8,4 +8,10 @@ public interface AccountModel extends ObservableModel<AccountModel> {
 
     public void setAccount(Account account);
 
+    public void invalidate();
+
+    public boolean isWebServerAvailable();
+
+    public void setWebServerAvailable(boolean webServerAvailable);
+
 }

@@ -58,6 +58,9 @@ public final class MainActivity extends Activity implements Observer<AccountMode
     public void sendTransaction(View view) {
         EditText textField = (EditText)findViewById(R.id.edit_message);
         EditText categoryTextField = (EditText) findViewById(R.id.edit_category);
+        if(textField.getText().toString().isEmpty()) {
+            return;
+        }
         BigDecimal amount = new BigDecimal(textField.getText().toString());
         controller.addTransaction(Transaction.newTransactionInEuros(amount, categoryTextField.getText().toString()));
         textField.getText().clear();
@@ -97,6 +100,8 @@ public final class MainActivity extends Activity implements Observer<AccountMode
                 TextView view = (TextView)findViewById(R.id.account_status);
                 view.setText("Current balance: " + currentAccount.getAmount().toString());
                 view.setTextSize(TypedValue.COMPLEX_UNIT_IN, 0.1f);
+                TextView avView = (TextView) findViewById(R.id.server_status);
+                avView.setText("" + model.isWebServerAvailable());
             }
         });
     }

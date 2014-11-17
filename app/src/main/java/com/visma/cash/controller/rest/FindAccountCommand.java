@@ -1,24 +1,19 @@
 package com.visma.cash.controller.rest;
 
-import android.util.Log;
-
-import com.google.common.base.Optional;
 import com.visma.cash.model.AccountModel;
 import com.visma.cash.restclient.RestClient;
 import com.visma.cash.restmodel.Account;
 
-public final class FindAccountCommand implements Runnable {
+public final class FindAccountCommand extends RestCommand {
 
-    private final RestClient restClient;
     private final AccountModel model;
 
-    FindAccountCommand(RestClient restClient, AccountModel model) {
-        this.restClient = restClient;
+    FindAccountCommand(AccountModel model) {
         this.model = model;
     }
 
     @Override
-    public void run() {
+    void executeRestCommand() {
         Account account = restClient.findExistingAccount(model.getAccount());
         model.setAccount(account);
     }

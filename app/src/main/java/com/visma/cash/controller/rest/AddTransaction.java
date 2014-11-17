@@ -5,13 +5,15 @@ import com.visma.cash.restclient.RestClient;
 import com.visma.cash.restmodel.Account;
 import com.visma.cash.restmodel.Transaction;
 
-public final class DeleteTransactionCommand {
+final class AddTransaction {
+
+    private AddTransaction(){}
 
     static Runnable restCommand(final Transaction transaction, final AccountModel model) {
         return new RestCommand() {
             @Override
             void executeRestCommand() {
-                restClient.deleteTransaction(model.getAccount(), transaction);
+                restClient.addTransaction(model.getAccount(), transaction);
             }
         };
     }
@@ -20,7 +22,7 @@ public final class DeleteTransactionCommand {
         return new Runnable() {
             @Override
             public void run() {
-                model.getAccount().getTransactions().remove(transaction);
+                model.getAccount().addTransaction(transaction);
                 model.invalidate();
             }
         };

@@ -12,6 +12,11 @@ import android.widget.TextView;
 
 import com.visma.cash.restmodel.Transaction;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -20,8 +25,9 @@ final class TransactionAdapter extends BaseAdapter{
     private final List<Transaction> transactions;
     private final Context context;
 
-    TransactionAdapter(List<Transaction> transactions, Context context) {
-        this.transactions = transactions;
+    TransactionAdapter(Collection<Transaction> transactions, Context context) {
+        this.transactions = new ArrayList<>(transactions);
+        Collections.sort(this.transactions);
         this.context = context;
     }
 
@@ -43,23 +49,24 @@ final class TransactionAdapter extends BaseAdapter{
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         LinearLayout layout = new LinearLayout(context);
-        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setOrientation(LinearLayout.HORIZONTAL);
 
         TextView timeView = new TextView(context);
-        timeView.setText(transactions.get(i).getTimestamp().toString("EEE' 'MMM-dd' 'hh:mm:ss"));
+        timeView.setText(transactions.get(i).getTimestamp().toString("YYYY-MM-dd' 'hh:mm'  '"));
         timeView.setTextColor(Color.BLACK);
 
         TextView seperatorView = new TextView(context);
-        seperatorView.setText(transactions.get(i).getCategory());
+        seperatorView.setText(" " + transactions.get(i).getCategory() + " ");
         seperatorView.setTextColor(Color.BLACK);
 
         TextView amountView = new TextView(context);
-        amountView.setText(transactions.get(i).getAmount().toString());
+        amountView.setText(" " + transactions.get(i).getAmount().toString() + " ");
         amountView.setTextColor(Color.BLACK);
 
         layout.addView(timeView);
-        layout.addView(seperatorView);
         layout.addView(amountView);
+        layout.addView(seperatorView);
+
         return layout;
     }
 }
